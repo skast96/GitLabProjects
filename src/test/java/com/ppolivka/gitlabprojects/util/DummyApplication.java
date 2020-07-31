@@ -14,8 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.picocontainer.ComponentAdapter;
 import org.picocontainer.PicoContainer;
-import org.picocontainer.PicoVerificationException;
-import org.picocontainer.PicoVisitor;
 
 import java.awt.*;
 import java.util.*;
@@ -35,6 +33,21 @@ public class DummyApplication implements Application {
 
   public DummyApplication(Object service) {
     this.service = service;
+  }
+
+  @Override
+  public void invokeLaterOnWriteThread(@NotNull Runnable action) {
+
+  }
+
+  @Override
+  public void invokeLaterOnWriteThread(Runnable action, ModalityState modal) {
+
+  }
+
+  @Override
+  public void invokeLaterOnWriteThread(Runnable action, ModalityState modal, @NotNull Condition<?> expired) {
+
   }
 
   @Override
@@ -88,6 +101,11 @@ public class DummyApplication implements Application {
   }
 
   @Override
+  public void assertIsWriteThread() {
+
+  }
+
+  @Override
   public void addApplicationListener(@NotNull ApplicationListener applicationListener) {
 
   }
@@ -108,22 +126,17 @@ public class DummyApplication implements Application {
   }
 
   @Override
-  public void saveAll(boolean isForce) {
-
-  }
-
-  @Override
   public void saveSettings() {
 
   }
 
   @Override
-  public void saveSettings(boolean isForce) {
+  public void exit() {
 
   }
 
   @Override
-  public void exit() {
+  public void exit(boolean force, boolean exitConfirmed, boolean restart) {
 
   }
 
@@ -139,6 +152,11 @@ public class DummyApplication implements Application {
 
   @Override
   public boolean isDispatchThread() {
+    return false;
+  }
+
+  @Override
+  public boolean isWriteThread() {
     return false;
   }
 
@@ -265,15 +283,13 @@ public class DummyApplication implements Application {
     return false;
   }
 
-  @NotNull
   @Override
-  public AccessToken acquireReadActionLock() {
+  public @NotNull AccessToken acquireReadActionLock() {
     return null;
   }
 
-  @NotNull
   @Override
-  public AccessToken acquireWriteActionLock(@NotNull Class aClass) {
+  public @NotNull AccessToken acquireWriteActionLock(@NotNull Class<?> marker) {
     return null;
   }
 
@@ -328,64 +344,10 @@ public class DummyApplication implements Application {
       }
 
       @Override
-      public List getComponentInstances() {
-        return null;
-      }
-
-      @Override
-      public PicoContainer getParent() {
-        return null;
-      }
-
-      @Override
       public ComponentAdapter getComponentAdapter(Object o) {
         return null;
       }
 
-      @Override
-      public ComponentAdapter getComponentAdapterOfType(Class aClass) {
-        return null;
-      }
-
-      @Override
-      public Collection getComponentAdapters() {
-        return null;
-      }
-
-      @Override
-      public List getComponentAdaptersOfType(Class aClass) {
-        return null;
-      }
-
-      @Override
-      public void verify() throws PicoVerificationException {
-
-      }
-
-      @Override
-      public List getComponentInstancesOfType(Class aClass) {
-        return null;
-      }
-
-      @Override
-      public void accept(PicoVisitor picoVisitor) {
-
-      }
-
-      @Override
-      public void dispose() {
-
-      }
-
-      @Override
-      public void start() {
-
-      }
-
-      @Override
-      public void stop() {
-
-      }
     };
   }
 
